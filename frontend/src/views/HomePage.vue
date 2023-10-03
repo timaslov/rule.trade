@@ -12,11 +12,10 @@
         программирования. Просто подключите свой аккаунт на бирже, настройте логические правила
         на основе выбраных технических индикаторов, и начните торговать на автопилоте.</p>
 
-      <button class="introd_button">Начать прямо сейчас</button>
+      <button>Начать прямо сейчас</button>
 
       <img
           src="../assets/images/HomePage_introd_block_image.jpg"
-          class="introd_img"
           alt="Some_text"
       >
     </div>
@@ -33,36 +32,36 @@
       <div class="advantage_item">
         <img src="../assets/images/HomePage_about_us_icon1.png" alt="Icon1" />
         <h3>Простота</h3>
-        <ul class="u_list">
-          <li class="list_item">Теперь для автоматизации торговли не требуется писать код
+        <ul>
+          <li>Теперь для автоматизации торговли не требуется писать код
             на языках программирования или постоянно следить за рынком</li>
-          <li class="list_item">Работает 24/7. Настройте правила и занимайтесь своими делами,
+          <li>Работает 24/7. Настройте правила и занимайтесь своими делами,
             rule.trade совершает сделки всегда</li>
         </ul>
       </div>
       <div class="advantage_item">
         <img src="../assets/images/HomePage_about_us_icon2.png" alt="Icon2" />
         <h3>Безопасность</h3>
-        <ul class="u_list">
-          <li class="list_item">Все ваши средства хранятся на подключённых биржах,
+        <ul>
+          <li>Все ваши средства хранятся на подключённых биржах,
             rule.trade не имеет к ним доступ</li>
-          <li class="list_item">Настройте доступ к вашим API только по определённым IP,
+          <li>Настройте доступ к вашим API только по определённым IP,
             злоумышленник даже узнав ваш ключ не сможет совершить действия</li>
         </ul>
       </div>
       <div class="advantage_item">
         <img src="../assets/images/HomePage_about_us_icon3.png" alt="Icon3" />
         <h3>Для всех уровней опыта</h3>
-        <ul class="u_list">
-          <li class="list_item">Подходит для любого опыта торговли - просто перенесите
+        <ul>
+          <li>Подходит для любого опыта торговли - просто перенесите
             опубликованные в Интернете стратегии, или создайте свою</li>
-          <li class="list_item">Если ваше настроенное правило не будет показывать
+          <li>Если ваше настроенное правило не будет показывать
             необходимую эффективность - просто остановите его или заново запустите одним кликом</li>
         </ul>
       </div>
     </div>
 
-    <button class="introd_button">Попробовать</button>
+    <button>Попробовать</button>
   </div>
 
   <div class="exchanges_block">
@@ -185,11 +184,11 @@
   margin: 0 auto;
 }
 
-.introd_button {
+.introd_block button {
   margin-top: 2em;
 }
 
-.introd_img {
+.introd_block img {
   max-width: 90%;
   height: auto;
   margin-top: 36px;
@@ -207,7 +206,11 @@
 }
 
 .about_us_block p {
-  color: #8896AB;
+  color: var(--brand-gray);
+}
+
+.about_us_block button {
+  margin-top: 2em;
 }
 
 .advantages {
@@ -232,16 +235,16 @@
   margin-right: 0; /* убирает промежуток у последнего прямоугольника */
 }
 
-.u_list {
+.advantage_item ul {
   margin: 0 0 0 0;
   padding: 0 0 0 48px;
 }
 
-.list_item {
+.advantage_item li {
   font-size: 20px;
   line-height: 30px;
   text-align: left;
-  color: #556987
+  color: var(--brand-gray);
 }
 
 .exchanges_block {
@@ -254,7 +257,7 @@
 }
 
 .exchanges_block p{
-  color: #8896AB;
+  color: var(--brand-gray);
 }
 
 .exchanges_flexbox {
@@ -294,11 +297,11 @@
 }
 
 .questions_block_top p {
-  color: #8896AB;
+  color: var(--brand-light-gray);
 }
 
 .question_mark {
-  color: #007EC6;
+  color: var(--brand-blue);
   background-color: #E2E8F0;
   padding: 8px 16px 8px 16px;
   border-radius: 36px;
@@ -333,11 +336,11 @@
 }
 
 .questions_flexbox_item_item p{
-  color: #8896AB;
+  color: var(--brand-light-gray);
 }
 
 .question_icon {
-  background-color: #007EC6;
+  background-color: var(--brand-blue);
   min-width: 48px;
   width: 48px;
   height: 48px;
@@ -363,7 +366,7 @@
 }
 
 .didnt_find_answer p {
-  color: #8896AB;
+  color: var(--brand-light-gray);
 }
 
 .didnt_find_answer button {
