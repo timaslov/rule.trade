@@ -48,7 +48,8 @@
 }
 
 .navbar-options {
-  padding: 0 0 0 0;
+  padding: 0;
+  margin: 48px;
   list-style-type: none;
   display: flex;
   justify-content: space-between;
@@ -93,6 +94,12 @@
 @media (min-width: 768px) and (max-width: 1024px) {
   .navbar-flexbox-inner-container{
     width: 95%;
+  }
+  .navbar-options{
+    margin: 24px;
+  }
+  .navbar-options li{
+    margin-right: 24px;
   }
 }
 
