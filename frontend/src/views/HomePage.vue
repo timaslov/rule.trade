@@ -31,7 +31,7 @@
     <div class="advantages">
       <div class="advantage_item">
         <img src="../assets/images/HomePage_about_us_icon1.png" alt="Icon1" />
-        <h3>Простота</h3>
+        <h4>Простота</h4>
         <ul>
           <li>Теперь для автоматизации торговли не требуется писать код
             на языках программирования или постоянно следить за рынком</li>
@@ -41,7 +41,7 @@
       </div>
       <div class="advantage_item">
         <img src="../assets/images/HomePage_about_us_icon2.png" alt="Icon2" />
-        <h3>Безопасность</h3>
+        <h4>Безопасность</h4>
         <ul>
           <li>Все ваши средства хранятся на подключённых биржах,
             rule.trade не имеет к ним доступ</li>
@@ -51,7 +51,7 @@
       </div>
       <div class="advantage_item">
         <img src="../assets/images/HomePage_about_us_icon3.png" alt="Icon3" />
-        <h3>Для всех уровней опыта</h3>
+        <h4>Для всех уровней опыта</h4>
         <ul>
           <li>Подходит для любого опыта торговли - просто перенесите
             опубликованные в Интернете стратегии, или создайте свою</li>
@@ -99,7 +99,7 @@
       <div class="questions_flexbox_item">
         <div class="question_icon"><span>?</span></div>
         <div class="questions_flexbox_item_item">
-          <h3>Что такое правило?</h3>
+          <h4>Что такое правило?</h4>
           <p>Правило - заданные вами действия, которые будут выполнены в случае
             выполнения указанных условий по необходимым техническим индикаторам</p>
         </div>
@@ -107,7 +107,7 @@
       <div class="questions_flexbox_item">
         <div class="question_icon"><span>?</span></div>
         <div class="questions_flexbox_item_item">
-          <h3>Что необходимо для настройки правила?</h3>
+          <h4>Что необходимо для настройки правила?</h4>
           <p>Вам необходимо иметь верифицированный аккаунт на любой из доступных бирж,
             аккаунт в сервисе TradingView и наличие подписки в rule.trade</p>
         </div>
@@ -115,14 +115,14 @@
       <div class="questions_flexbox_item">
         <div class="question_icon"><span>?</span></div>
         <div class="questions_flexbox_item_item">
-          <h3>Что такое пакет?</h3>
+          <h4>Что такое пакет?</h4>
           <p>Пакет - набор технических индикаторов, которые добавлены в ваш чарт на TradingView</p>
         </div>
       </div>
       <div class="questions_flexbox_item">
         <div class="question_icon"><span>?</span></div>
         <div class="questions_flexbox_item_item">
-          <h3>Что такое логика в rule.trade ?</h3>
+          <h4>Что такое логика в rule.trade ?</h4>
           <p>Нет, сервис создан для того, чтобы обеспечить простое и интуитивное
             создание стратегий, даже без программирования.</p>
         </div>
@@ -130,7 +130,7 @@
       <div class="questions_flexbox_item">
         <div class="question_icon"><span>?</span></div>
         <div class="questions_flexbox_item_item">
-          <h3>Как я могу анализировать результаты моих стратегий?</h3>
+          <h4>Как я могу анализировать результаты моих стратегий?</h4>
           <p>Вам доступен инструмент для анализа доходности ваших стратегий,
             который поможет вам оптимизировать результаты.</p>
         </div>
@@ -138,7 +138,7 @@
       <div class="questions_flexbox_item">
         <div class="question_icon"><span>?</span></div>
         <div class="questions_flexbox_item_item">
-          <h3>Каким образом я могу начать использовать сервис?</h3>
+          <h4>Каким образом я могу начать использовать сервис?</h4>
           <p>Процесс начала использования подробно описан в разделе "Инструкция по настройке" на нашем сайте.</p>
         </div>
       </div>
@@ -331,7 +331,7 @@
   text-align: left;
 }
 
-.questions_flexbox_item_item h3{
+.questions_flexbox_item_item h4{
   margin: 0 0 24px 0;
 }
 

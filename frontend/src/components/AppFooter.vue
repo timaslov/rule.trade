@@ -16,7 +16,7 @@
         </ul>
       </div>
       <div class="footer-info">
-        <p>© 2023 rule.trade. Все права защищены.</p>
+        <p><span>© 2023 rule.trade.</span> Все права защищены.</p>
         <div class="media-links">
           <img src="../assets/images/Icon_Facebook.svg" alt="Logo">
           <img src="../assets/images/Icon_Twitter.svg" alt="Logo">
@@ -100,6 +100,10 @@
 
 .media-links img:last-child {
   margin-right: 0;
+}
+
+span {
+  font-weight: 600;
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) {
