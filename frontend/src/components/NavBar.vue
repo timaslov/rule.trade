@@ -5,16 +5,16 @@
 <template>
   <header class="navbar-flexbox">
     <nav class="navbar-flexbox-inner-container">
-      <img class="logo" src="../assets/images/Header_logo.svg" alt="Logo">
+      <router-link to="/"><img class="logo" src="../assets/images/Header_logo.svg" alt="Logo"></router-link>
       <ul class="navbar-options">
-        <li>Главная</li>
+        <li><router-link to="/" class="router-link-li">Главная</router-link></li>
         <li>Профиль</li>
         <li>Инструкция</li>
         <li>О нас</li>
       </ul>
       <div class="user-options">
-        <button class="btn-login">Войти</button>
-        <button class="btn-register">Регистрация</button>
+        <button class="btn-login"><router-link to="/login" class="router-link-btn-login">Войти</router-link></button>
+        <button class="btn-register"><router-link to="/register" class="router-link-btn-register">Регистрация</router-link></button>
       </div>
     </nav>
   </header>
@@ -57,11 +57,16 @@
 }
 
 .navbar-options li {
+  margin-right: 48px;
+  white-space: nowrap;
+}
+
+.router-link-li {
+  text-decoration: none;
+  color: inherit;
   font-size: 16px;
   line-height: 24px;
   font-weight: 500;
-  margin-right: 48px;
-  white-space: nowrap;
 }
 
 .navbar-options li:last-child {
@@ -76,19 +81,29 @@
 
 .btn-login {
   margin-right: 24px;
+  padding: 0 0 0 0;
   width: 53px;
   height: 24px;
   background: none;
+}
+
+.router-link-btn-login {
+  text-decoration: none;
   color: black;
   font-size: 16px;
   line-height: 24px;
   font-weight: 600;
-  padding: 0 0 0 0;
 }
 
 .btn-register {
-  line-height: 27px;
   padding: 5px 28px;
+}
+
+.router-link-btn-register {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+  line-height: 27px;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

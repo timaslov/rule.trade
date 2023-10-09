@@ -6,13 +6,13 @@
   <footer class="footer">
     <div class="footer-inner-container">
       <div class="footer-navbar">
-        <img class="logo" src="../assets/images/Header_logo.svg" alt="Logo">
+        <router-link to="/"><img class="logo" src="../assets/images/Header_logo.svg" alt="Logo"></router-link>
         <ul class="footer-navbar-options">
-          <li>Главная</li>
-          <li>Профиль</li>
-          <li>Инструкция по настройке</li>
-          <li>Доступные биржи</li>
-          <li>О нас</li>
+          <li><router-link to="/" class="router-link-li">Главная</router-link></li>
+          <li><router-link to="/" class="router-link-li">Профиль</router-link></li>
+          <li><router-link to="/" class="router-link-li">Инструкция по настройке</router-link></li>
+          <li><router-link to="/" class="router-link-li">Доступные биржи</router-link></li>
+          <li><router-link to="/" class="router-link-li">О нас</router-link></li>
         </ul>
       </div>
       <div class="footer-info">
@@ -69,11 +69,16 @@
 }
 
 .footer-navbar-options li {
+  margin-right: 48px;
+  white-space: nowrap;
+}
+
+.router-link-li {
+  text-decoration: none;
+  color: inherit;
   font-size: 20px;
   line-height: 30px;
   font-weight: 500;
-  margin-right: 48px;
-  white-space: nowrap;
 }
 
 .footer-navbar-options li:last-child {
