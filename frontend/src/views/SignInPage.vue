@@ -1,4 +1,25 @@
 <script setup lang="ts">
+import {ref} from 'vue';
+import {login} from "../services/auth.ts";
+
+const email = ref('');
+const password = ref('');
+const rememberMe = ref(false);
+const warning = ref('');
+
+const handleLogin = async () => {
+  if (!email.value || !password.value)
+    warning.value = 'Заполните все поля'
+  else {
+    try {
+      await login(email.value, password.value, rememberMe.value)
+      warning.value = ''
+    }
+    catch (error) {
+      warning.value = error.message
+    }
+  }
+}
 
 </script>
 
@@ -13,23 +34,24 @@
         <p>Введите свои учетные данные, чтобы получить доступ к личному кабинету.</p>
         <div class="input_container">
           <label>Номер телефона / Почта</label>
-          <input type="text">
+          <input type="text" v-model="email">
           <label>Пароль</label>
-          <input type="password">
+          <input type="password" v-model="password">
         </div>
         <div class="remember_forget_container">
           <div class="remember_container">
-            <input type="checkbox">
+            <input type="checkbox" v-model="rememberMe">
             <label>Запомнить меня</label>
           </div>
           <a>Забыли пароль?</a>
         </div>
-        <button>Войти</button>
+        <button @click="handleLogin">Войти</button>
         <div class="register">
           <p>Еще нет аккаунта?
-            <a>Зарегистрироваться</a>
+            <router-link to="/register" class="router-link-register">Зарегистрироваться</router-link>
           </p>
         </div>
+        <div v-if="warning" class="warning-message">{{ warning }}</div>
       </div>
     </div>
   </div>
@@ -113,6 +135,15 @@
   margin: 16px 0 0 0;
 }
 
+.router-link-register {
+  text-decoration: none;
+}
+
+.warning-message {
+  margin: 16px 0 0 0;
+  color: #ea0000;
+}
+
 p {
   font-size: 12px;
   line-height: 16px;
@@ -128,6 +159,5 @@ label {
 button {
   margin: 14px 0 0 0;
 }
-
 
 </style>
