@@ -1,5 +1,6 @@
 import {setPersistence, signInWithEmailAndPassword,  browserSessionPersistence,
-    browserLocalPersistence} from "firebase/auth";
+    browserLocalPersistence, createUserWithEmailAndPassword, sendEmailVerification,
+    sendPasswordResetEmail} from "firebase/auth";
 import {auth} from "../../firebaseConfig.ts";
 
 export async function login(email: string, password: string, rememberMe: boolean): Promise<void> {
@@ -25,6 +26,52 @@ export async function login(email: string, password: string, rememberMe: boolean
                     break;
                 case "auth/too-many-requests":
                     errorMessage = "Слишком много попыток входа. Пожалуйста, попробуйте позже";
+                    break;
+            }
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+export async function register(email: string, password: string): Promise<void> {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        if (userCredential.user) {
+            await sendEmailVerification(userCredential.user);
+        }
+    } catch (error) {
+        let errorMessage = "Ошибка регистрации";
+
+        if (error && typeof error === "object" && 'code' in error) {
+            switch (error.code) {
+                case "auth/email-already-in-use":
+                    errorMessage = "Такой email уже используется";
+                    break;
+                case "auth/invalid-email":
+                    errorMessage = "Неверный формат email";
+                    break;
+                case "auth/weak-password":
+                    errorMessage = "Пароль слишком слабый";
+                    break;
+            }
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+export async function forgotPassword(email: string): Promise<void> {
+    try {
+        await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+        let errorMessage = "Ошибка сброса пароля";
+
+        if (error && typeof error === "object" && 'code' in error) {
+            switch (error.code) {
+                case "auth/invalid-email":
+                    errorMessage = "Неверный формат email";
+                    break;
+                case "auth/user-not-found":
+                    errorMessage = "Неверный email";
                     break;
             }
         }

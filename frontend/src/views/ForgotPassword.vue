@@ -1,51 +1,40 @@
 <script setup lang="ts">
 import {ref} from 'vue';
-import {register} from "../services/auth.ts";
+import {forgotPassword} from "../services/auth.ts";
 
 const email = ref('');
-const password = ref('');
-const confirmPassword = ref('');
 const warning = ref('');
 
-const handleRegister = async () => {
-  if (!email.value || !password.value || !confirmPassword.value)
-    warning.value = 'Заполните все поля'
-  else if (password.value !== confirmPassword.value)
-    warning.value = 'Пароли не совпадают'
-  else
+const handleForgotPassword = async () => {
+  if (!email.value)
+    warning.value = 'Заполните поле email'
+  else {
     try {
-      await register(email.value, password.value)
+      await forgotPassword(email.value)
       warning.value = ''
     }
     catch (error) {
       warning.value = error.message
     }
+  }
 }
-
 </script>
+
 
 <template>
   <div class="container">
     <img class="logo"
          src="../assets/images/Logo.svg"
          alt="logo">
-    <div class="register">
-      <div class="register-inner">
-        <h3>Регистрация</h3>
+    <div class="main-block">
+      <div class="main-block-inner">
+        <h3>Забыли пароль?</h3>
+        <p>Введите email, чтобы восстановить пароль. Вам на почту придет письмо для сброса пароля.</p>
         <div class="input_container">
           <label>Email</label>
           <input type="text" v-model="email">
-          <label>Пароль</label>
-          <input type="password" v-model="password">
-          <label>Повторите пароль</label>
-          <input type="password" v-model="confirmPassword">
         </div>
-        <button @click="handleRegister">Зарегистрироваться</button>
-        <div class="sign-in">
-          <p>Уже есть аккаунт?
-            <router-link to="/login" class="router-link-login">Войти</router-link>
-          </p>
-        </div>
+        <button @click="handleForgotPassword">Отправить</button>
         <div v-if="warning" class="warning-message">{{ warning }}</div>
       </div>
     </div>
@@ -65,8 +54,8 @@ const handleRegister = async () => {
   margin: 0 auto;
 }
 
-.register {
-  height: 580px;
+.main-block {
+  height: 400px;
   width: 543px;
   display: flex;
   flex-direction: column;
@@ -75,13 +64,13 @@ const handleRegister = async () => {
   box-shadow: 0 2px 10px 0 #d9d9d9;
 }
 
-.register-inner {
+.main-block-inner {
   margin: 42px 92px 0 92px;
   display: flex;
   flex-direction: column;
 }
 
-.register-inner h3 {
+.main-block-inner h3 {
   margin: 16px 0;
 }
 
@@ -96,14 +85,6 @@ const handleRegister = async () => {
   height: 46px;
   border-radius: 8px;
   border: 1px solid #d5dae1;
-}
-
-.sign-in p {
-  margin: 16px 0 0 0;
-}
-
-.router-link-login {
-  text-decoration: none;
 }
 
 .warning-message {
@@ -126,6 +107,5 @@ label {
 button {
   margin: 14px 0 0 0;
 }
-
 
 </style>
