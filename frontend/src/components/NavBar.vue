@@ -1,5 +1,21 @@
 <script setup lang="ts">
+import {useStore} from "vuex";
+import {computed,ref} from "vue";
+import {logout} from "../services/auth.ts";
+import {useRouter} from "vue-router";
 
+const store = useStore();
+const user = computed(() => store.getters.user);
+const userMenuOpen = ref(false);
+const router = useRouter();
+
+const logoutHandler = async () => {
+  await logout();
+};
+
+const changePasswordHandler = () => {
+  router.push('/change_password');
+};
 </script>
 
 <template>
@@ -12,9 +28,28 @@
         <li>Инструкция</li>
         <li>О нас</li>
       </ul>
-      <div class="user-options">
+      <div class="user-options" v-if="!user">
         <button class="btn-login"><router-link to="/login" class="router-link-btn-login">Войти</router-link></button>
         <button class="btn-register"><router-link to="/register" class="router-link-btn-register">Регистрация</router-link></button>
+      </div>
+      <div class="authorized-user-options" v-if="user">
+        <label>{{user.email}}</label>
+        <v-menu v-model="userMenuOpen">
+          <template v-slot:activator="{ props }">
+            <v-icon
+                :icon="userMenuOpen ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+                v-bind="props"
+            ></v-icon>
+          </template>
+          <v-list class="v-list">
+            <v-list-item @click="changePasswordHandler">
+              Сменить пароль
+            </v-list-item>
+            <v-list-item @click="logoutHandler">
+              Выход
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </div>
     </nav>
   </header>
@@ -79,6 +114,20 @@
   align-items: center;
 }
 
+.authorized-user-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.authorized-user-options label{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: black;
+  margin: 0 8px 0 0;
+}
+
 .btn-login {
   margin-right: 24px;
   padding: 0 0 0 0;
@@ -104,6 +153,12 @@
   color: inherit;
   font-size: inherit;
   line-height: 27px;
+}
+
+/* Лучше способа пока не нашел, чтобы убрать полосу прокрутки в выпадающем меню */
+.v-menu > .v-overlay__content > .v-card, .v-menu > .v-overlay__content > .v-sheet,
+.v-menu > .v-overlay__content > .v-list {
+  overflow: hidden;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

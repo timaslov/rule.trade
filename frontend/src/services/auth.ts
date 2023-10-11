@@ -143,3 +143,7 @@ export async function changePassword(currentPassword: string, newPassword: strin
         throw new Error(errorMessage);
     }
 }
+
+export async function logout(): Promise<void> {
+    await auth.signOut();
+}

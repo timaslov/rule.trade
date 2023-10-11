@@ -4,10 +4,12 @@ import App from './App.vue'
 import router from "./router";
 import { store } from './store';
 import {auth} from '../firebaseConfig.ts'
+import vuetify from './plugins/vuetify';
 
 createApp(App)
     .use(router)
     .use(store)
+    .use(vuetify)
     .mount('#app')
 
 auth.onAuthStateChanged((user) => {
