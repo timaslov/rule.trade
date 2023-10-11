@@ -1,6 +1,6 @@
 import {setPersistence, signInWithEmailAndPassword,  browserSessionPersistence,
     browserLocalPersistence, createUserWithEmailAndPassword, sendEmailVerification,
-    sendPasswordResetEmail} from "firebase/auth";
+    sendPasswordResetEmail, confirmPasswordReset} from "firebase/auth";
 import {auth} from "../../firebaseConfig.ts";
 
 export async function login(email: string, password: string, rememberMe: boolean): Promise<void> {
@@ -72,6 +72,35 @@ export async function forgotPassword(email: string): Promise<void> {
                     break;
                 case "auth/user-not-found":
                     errorMessage = "Неверный email";
+                    break;
+            }
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+export async function setNewPassword(oobCode: string, newPassword: string): Promise<void> {
+    try {
+        await confirmPasswordReset(auth, oobCode, newPassword);
+    } catch (error) {
+        let errorMessage = "Ошибка смены пароля";
+        console.log(error)
+        if (error && typeof error === "object" && 'code' in error) {
+            switch (error.code) {
+                case "auth/expired-action-code":
+                    errorMessage = "Действие формы истекло";
+                    break;
+                case "auth/invalid-action-code":
+                    errorMessage = "Форма недействительна";
+                    break;
+                case "auth/user-not-found":
+                    errorMessage = "Пользователь не найден";
+                    break;
+                case "auth/weak-password":
+                    errorMessage = "Пароль слишком слабый";
+                    break;
+                case "auth/internal-error":
+                    errorMessage = "Произошла внутренняя ошибка. Попробуйте еще раз позже.";
                     break;
             }
         }
