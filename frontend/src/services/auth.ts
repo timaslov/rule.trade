@@ -1,6 +1,6 @@
-import {setPersistence, signInWithEmailAndPassword,  browserSessionPersistence,
-    browserLocalPersistence, createUserWithEmailAndPassword, sendEmailVerification,
-    sendPasswordResetEmail, confirmPasswordReset} from "firebase/auth";
+import {setPersistence, signInWithEmailAndPassword,  browserSessionPersistence, browserLocalPersistence,
+    createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, confirmPasswordReset,
+    reauthenticateWithCredential, EmailAuthProvider, updatePassword} from "firebase/auth";
 import {auth} from "../../firebaseConfig.ts";
 
 export async function login(email: string, password: string, rememberMe: boolean): Promise<void> {
@@ -101,6 +101,42 @@ export async function setNewPassword(oobCode: string, newPassword: string): Prom
                     break;
                 case "auth/internal-error":
                     errorMessage = "Произошла внутренняя ошибка. Попробуйте еще раз позже.";
+                    break;
+            }
+        }
+        throw new Error(errorMessage);
+    }
+}
+
+export async function changePassword(currentPassword: string, newPassword: string): Promise<void> {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            const error = new Error();
+            error.code = "auth/user-not-authorized";
+            throw error;
+        }
+
+        const credential = EmailAuthProvider.credential(user.email, currentPassword);
+        await reauthenticateWithCredential(user, credential);
+        await updatePassword(user, newPassword);
+
+    } catch (error) {
+        let errorMessage = "Ошибка смены пароля";
+
+        if (error && typeof error === "object" && 'code' in error) {
+            switch (error.code) {
+                case "auth/wrong-password":
+                    errorMessage = "Неверный текущий пароль";
+                    break;
+                case "auth/user-not-found":
+                    errorMessage = "Пользователь не найден";
+                    break;
+                case "auth/weak-password":
+                    errorMessage = "Пароль слишком слабый";
+                    break;
+                case "auth/user-not-authorized":
+                    errorMessage = "Пользователь не в системе"
                     break;
             }
         }
