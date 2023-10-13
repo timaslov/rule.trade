@@ -1,27 +1,23 @@
 <script setup lang="ts">
+import NavBarUserMenu from "./NavBarUserMenu.vue";
 import {useStore} from "vuex";
 import {computed,ref} from "vue";
-import {logout} from "../services/auth.ts";
-import {useRouter} from "vue-router";
 
 const store = useStore();
 const user = computed(() => store.getters.user);
 const userMenuOpen = ref(false);
-const router = useRouter();
 
-const logoutHandler = async () => {
-  await logout();
-};
-
-const changePasswordHandler = () => {
-  router.push('/change_password');
-};
 </script>
 
 <template>
   <header class="navbar-flexbox">
     <nav class="navbar-flexbox-inner-container">
-      <router-link to="/"><img class="logo" src="../assets/images/Header_logo.svg" alt="Logo"></router-link>
+      <router-link to="/">
+        <div class="logo-container">
+          <img class="logo1" src="../assets/images/Logo.svg" alt="Logo">
+          <img class="logo2" src="../assets/images/rule_trade.svg" alt="Logo">
+        </div>
+      </router-link>
       <ul class="navbar-options">
         <li><router-link to="/" class="router-link-li">Главная</router-link></li>
         <li>Профиль</li>
@@ -34,22 +30,10 @@ const changePasswordHandler = () => {
       </div>
       <div class="authorized-user-options" v-if="user">
         <label>{{user.email}}</label>
-        <v-menu v-model="userMenuOpen">
-          <template v-slot:activator="{ props }">
-            <v-icon
+        <v-icon
                 :icon="userMenuOpen ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-                v-bind="props"
-            ></v-icon>
-          </template>
-          <v-list class="v-list">
-            <v-list-item @click="changePasswordHandler">
-              Сменить пароль
-            </v-list-item>
-            <v-list-item @click="logoutHandler">
-              Выход
-            </v-list-item>
-          </v-list>
-        </v-menu>
+        ></v-icon>
+        <NavBarUserMenu></NavBarUserMenu>
       </div>
     </nav>
   </header>
@@ -77,14 +61,23 @@ const changePasswordHandler = () => {
   justify-content: space-between;
 }
 
-.logo {
-  width: 172px;
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo1 {
   height: 32px;
+  margin: 0 8px 0 0;
+}
+
+.logo2 {
+  height: 20px;
 }
 
 .navbar-options {
   padding: 0;
-  margin: 48px;
+  margin: 0 48px;
   list-style-type: none;
   display: flex;
   justify-content: space-between;
@@ -118,6 +111,7 @@ const changePasswordHandler = () => {
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
 }
 
 .authorized-user-options label{
@@ -155,21 +149,37 @@ const changePasswordHandler = () => {
   line-height: 27px;
 }
 
-/* Лучше способа пока не нашел, чтобы убрать полосу прокрутки в выпадающем меню */
-.v-menu > .v-overlay__content > .v-card, .v-menu > .v-overlay__content > .v-sheet,
-.v-menu > .v-overlay__content > .v-list {
-  overflow: hidden;
-}
-
 @media (min-width: 768px) and (max-width: 1024px) {
   .navbar-flexbox-inner-container{
     width: 95%;
   }
   .navbar-options{
-    margin: 24px;
+    margin: 0 24px;
   }
   .navbar-options li{
     margin-right: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-flexbox-inner-container{
+    width: 95%;
+  }
+
+  .navbar-options{
+    margin: 0 8px;
+  }
+
+  .navbar-options li{
+    margin-right: 8px;
+  }
+
+  .logo2{
+    display: none;
+  }
+
+  .authorized-user-options label {
+    display: none;
   }
 }
 
