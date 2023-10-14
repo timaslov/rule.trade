@@ -1,8 +1,29 @@
 <script setup lang="ts">
 import {logout} from "../services/auth.ts";
 import {useRouter} from "vue-router";
+import {useStore} from "vuex";
+import {computed, ref, onMounted, onUnmounted} from "vue";
 
+const store = useStore();
+const user = computed(() => store.getters.user);
 const router = useRouter();
+
+const isMenuOpened = ref(false);
+const menuIconRef = ref<HTMLElement | null>(null);
+
+const outsideClickListener = (event: Event) => {
+  if (menuIconRef.value && !menuIconRef.value.contains(event.target as Node)) {
+    isMenuOpened.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('click', outsideClickListener);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', outsideClickListener);
+});
 
 const logoutHandler = async () => {
   await logout();
@@ -11,16 +32,46 @@ const logoutHandler = async () => {
 const changePasswordHandler = () => {
   router.push('/change_password');
 };
+
+const toggleMenuChevron = () => {
+  isMenuOpened.value = !isMenuOpened.value
+};
+
 </script>
 
 <template>
-  <ul>
-    <li @click="changePasswordHandler">Сменить пароль</li>
-    <li @click="logoutHandler">Выход</li>
-  </ul>
+  <div class="authorized-user-options">
+    <label>{{user.email}}</label>
+    <div ref="menuIconRef">
+    <v-icon
+        @click="toggleMenuChevron"
+        :icon="isMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+    ></v-icon>
+    </div>
+    <ul v-if="isMenuOpened">
+      <li @click="changePasswordHandler">Сменить пароль</li>
+      <li @click="logoutHandler">Выход</li>
+      <li>Пункт 3</li>
+    </ul>
+  </div>
 </template>
 
 <style scoped>
+.authorized-user-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.authorized-user-options label{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: black;
+  margin: 0 8px 0 0;
+}
+
 ul {
   position: absolute;
   top: 100%;

@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import NavBarUserMenu from "./NavBarUserMenu.vue";
 import {useStore} from "vuex";
-import {computed,ref} from "vue";
+import {computed} from "vue";
 
 const store = useStore();
 const user = computed(() => store.getters.user);
-const userMenuOpen = ref(false);
 
 </script>
 
@@ -28,13 +27,7 @@ const userMenuOpen = ref(false);
         <button class="btn-login"><router-link to="/login" class="router-link-btn-login">Войти</router-link></button>
         <button class="btn-register"><router-link to="/register" class="router-link-btn-register">Регистрация</router-link></button>
       </div>
-      <div class="authorized-user-options" v-if="user">
-        <label>{{user.email}}</label>
-        <v-icon
-                :icon="userMenuOpen ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-        ></v-icon>
-        <NavBarUserMenu></NavBarUserMenu>
-      </div>
+      <NavBarUserMenu v-if="user"></NavBarUserMenu>
     </nav>
   </header>
 </template>
@@ -105,21 +98,6 @@ const userMenuOpen = ref(false);
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-.authorized-user-options {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-}
-
-.authorized-user-options label{
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-  color: black;
-  margin: 0 8px 0 0;
 }
 
 .btn-login {
