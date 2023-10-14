@@ -9,6 +9,8 @@
   --brand-dark-gray: #333f51;
   --brand-bg_gray: #F6F7F8;
   --brand-black: #222222;
+  --brand-info: #44bcff;
+  --brand-border-gray: #d5dae1;
 
   color-scheme: light dark;
   color: var(--brand-black);

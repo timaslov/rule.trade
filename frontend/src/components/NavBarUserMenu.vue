@@ -33,7 +33,7 @@ const changePasswordHandler = () => {
   router.push('/change_password');
 };
 
-const toggleMenuChevron = () => {
+const toggleMenu = () => {
   isMenuOpened.value = !isMenuOpened.value
 };
 
@@ -43,15 +43,21 @@ const toggleMenuChevron = () => {
   <div class="authorized-user-options">
     <label>{{user.email}}</label>
     <div ref="menuIconRef">
-    <v-icon
-        @click="toggleMenuChevron"
-        :icon="isMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-    ></v-icon>
+      <v-icon
+          class="icon-chevron"
+          @click="toggleMenu"
+          :icon="isMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+      ></v-icon>
+      <v-icon
+          class="icon-account"
+          @click="toggleMenu"
+          icon="mdi-account"
+          size="large"
+      ></v-icon>
     </div>
     <ul v-if="isMenuOpened">
       <li @click="changePasswordHandler">Сменить пароль</li>
       <li @click="logoutHandler">Выход</li>
-      <li>Пункт 3</li>
     </ul>
   </div>
 </template>
@@ -87,6 +93,7 @@ ul {
 li {
   cursor: pointer;
   padding: 16px 16px;
+  white-space: nowrap;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -106,6 +113,24 @@ li:first-child:hover {
 li:last-child {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+.icon-account {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .icon-account{
+    display: block;
+  }
+
+  .icon-chevron{
+    display: none;
+  }
+
+  label{
+    display: none;
+  }
 }
 
 </style>

@@ -5,6 +5,7 @@ import RegistrationPage from "../views/RegistrationPage.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
 import AuthPage from "../views/AuthPage.vue";
 import ChangePassword from "../views/ChangePassword.vue";
+import ControlPanel from "../views/ControlPanel.vue";
 
 const routes: Array<RouteRecordRaw> = [
     { path: '/', component: HomePage},
@@ -12,7 +13,8 @@ const routes: Array<RouteRecordRaw> = [
     { path: '/login', component: SignInPage},
     { path: '/forgot_password', component: ForgotPassword},
     { path: '/auth', component: AuthPage},
-    { path: '/change_password', component: ChangePassword}
+    { path: '/change_password', component: ChangePassword},
+    { path: '/control_panel', component: ControlPanel}
 ]
 
 const router = createRouter({
