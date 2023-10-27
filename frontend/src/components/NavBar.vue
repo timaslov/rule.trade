@@ -1,11 +1,5 @@
 <script setup lang="ts">
 import NavBarUserMenu from "./NavBarUserMenu.vue";
-import {useStore} from "vuex";
-import {computed} from "vue";
-
-const store = useStore();
-const user = computed(() => store.getters.user);
-
 </script>
 
 <template>
@@ -23,11 +17,7 @@ const user = computed(() => store.getters.user);
         <li>Инструкция</li>
         <li>О нас</li>
       </ul>
-      <div class="user-options" v-if="!user">
-        <button class="btn-login"><router-link to="/login" class="router-link-btn-login">Войти</router-link></button>
-        <button class="btn-register"><router-link to="/register" class="router-link-btn-register">Регистрация</router-link></button>
-      </div>
-      <NavBarUserMenu v-if="user"></NavBarUserMenu>
+      <NavBarUserMenu></NavBarUserMenu>
     </nav>
   </header>
 </template>
@@ -92,39 +82,6 @@ const user = computed(() => store.getters.user);
 
 .navbar-options li:last-child {
   margin-right: 0;
-}
-
-.user-options {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.btn-login {
-  margin-right: 24px;
-  padding: 0 0 0 0;
-  width: 53px;
-  height: 24px;
-  background: none;
-}
-
-.router-link-btn-login {
-  text-decoration: none;
-  color: black;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 600;
-}
-
-.btn-register {
-  padding: 5px 28px;
-}
-
-.router-link-btn-register {
-  text-decoration: none;
-  color: inherit;
-  font-size: inherit;
-  line-height: 27px;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

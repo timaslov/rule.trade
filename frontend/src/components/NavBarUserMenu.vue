@@ -33,6 +33,10 @@ const changePasswordHandler = () => {
   router.push('/change_password');
 };
 
+const openControlPanelHandler = () => {
+  router.push('/control_panel');
+};
+
 const toggleMenu = () => {
   isMenuOpened.value = !isMenuOpened.value
 };
@@ -40,22 +44,21 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <div class="authorized-user-options">
+  <router-link to="/login" class="router-link-acc-button" v-if="!user"><span class="mdi mdi-account icon-account"></span></router-link>
+  <div class="user-options" v-if="!user">
+    <button class="btn-login"><router-link to="/login" class="router-link-btn-login">Войти</router-link></button>
+    <button class="btn-register"><router-link to="/register" class="router-link-btn-register">Регистрация</router-link></button>
+  </div>
+
+  <div class="authorized-user-options" v-if="user">
     <label>{{user.email}}</label>
-    <div ref="menuIconRef">
-      <v-icon
-          class="icon-chevron"
-          @click="toggleMenu"
-          :icon="isMenuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-      ></v-icon>
-      <v-icon
-          class="icon-account"
-          @click="toggleMenu"
-          icon="mdi-account"
-          size="large"
-      ></v-icon>
+    <div ref="menuIconRef" @click="toggleMenu">
+      <span class="mdi mdi-account icon-account"></span>
+      <span class="mdi mdi-chevron-down icon-chevron" v-show="!isMenuOpened"></span>
+      <span class="mdi mdi-chevron-up icon-chevron" v-show="isMenuOpened"></span>
     </div>
     <ul v-if="isMenuOpened">
+      <li @click="openControlPanelHandler">Панель управления</li>
       <li @click="changePasswordHandler">Сменить пароль</li>
       <li @click="logoutHandler">Выход</li>
     </ul>
@@ -63,6 +66,44 @@ const toggleMenu = () => {
 </template>
 
 <style scoped>
+.router-link-acc-button {
+  color: black;
+  display: none;
+}
+
+.user-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.btn-login {
+  margin-right: 24px;
+  padding: 0 0 0 0;
+  width: 53px;
+  height: 24px;
+  background: none;
+}
+
+.router-link-btn-login {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.btn-register {
+  padding: 5px 28px;
+}
+
+.router-link-btn-register {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+  line-height: 27px;
+}
+
 .authorized-user-options {
   display: flex;
   flex-direction: row;
@@ -116,7 +157,19 @@ li:last-child {
 }
 
 .icon-account {
+  cursor: pointer;
   display: none;
+  font-size: 28px;
+}
+
+.mdi-chevron-up {
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.mdi-chevron-down {
+  font-size: 26px;
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {
@@ -130,6 +183,14 @@ li:last-child {
 
   label{
     display: none;
+  }
+
+  .user-options{
+    display: none;
+  }
+
+  .router-link-acc-button{
+    display: block;
   }
 }
 

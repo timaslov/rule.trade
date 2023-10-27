@@ -6,6 +6,7 @@ import ForgotPassword from "../views/ForgotPassword.vue";
 import AuthPage from "../views/AuthPage.vue";
 import ChangePassword from "../views/ChangePassword.vue";
 import ControlPanel from "../views/ControlPanel.vue";
+import AddExchange from "../views/AddExchange.vue";
 
 const routes: Array<RouteRecordRaw> = [
     { path: '/', component: HomePage},
@@ -14,7 +15,8 @@ const routes: Array<RouteRecordRaw> = [
     { path: '/forgot_password', component: ForgotPassword},
     { path: '/auth', component: AuthPage},
     { path: '/change_password', component: ChangePassword},
-    { path: '/control_panel', component: ControlPanel}
+    { path: '/control_panel', component: ControlPanel},
+    { path: '/add_exchange', component: AddExchange}
 ]
 
 const router = createRouter({

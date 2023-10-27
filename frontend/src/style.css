@@ -11,6 +11,7 @@
   --brand-black: #222222;
   --brand-info: #44bcff;
   --brand-border-gray: #d5dae1;
+  --brand-error: #ff0000;
 
   color-scheme: light dark;
   color: var(--brand-black);
