@@ -23,11 +23,10 @@ auth.onAuthStateChanged(async (user) => {
         };
         store.dispatch('setUser', userData);
 
-        console.log(user)
+        //console.log(user)
         console.log(userData)
         let response = await getRequest('/getparamsforpanel', {})
-        console.log(response.data);
-        console.log('test')
+        //console.log(response.data);
     } else {
         store.dispatch('clearUser');
     }

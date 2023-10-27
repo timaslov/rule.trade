@@ -14,8 +14,7 @@ const handleClick = async () => {
       key: apiKey.value,
       secret: secretKey.value
     }
-    let response = await postRequest('/exchange_connect', {}, body)
-    console.log(response)
+    let response = await postRequest('/exchange_connect', body, {})
   } catch (error) {
     console.log('Ошибка ', error.response.status)
   }

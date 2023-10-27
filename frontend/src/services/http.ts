@@ -10,7 +10,9 @@ export async function getRequest(path: string, parameters?: Record<string, unkno
     };
 
     try {
-        return await axios.get(url, config);
+        const response = await axios.get(url, config);
+        console.log(response);
+        return response;
     } catch (error) {
         throw error;
     }
@@ -22,10 +24,13 @@ export async function postRequest(path: string, body: Record<string, unknown>,
     const url: string = import.meta.env.VITE_BASE_URL + path;
     const config = {
         headers: {Authorization: `Bearer ${token}`},
-        params: parameters}
+        params: parameters
+    };
 
     try {
-        return await axios.post(url, body, config)
+        const response = await axios.post(url, body, config);
+        console.log(response);
+        return response;
     } catch(error) {
         throw error
     }
