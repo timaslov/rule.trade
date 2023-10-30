@@ -8,6 +8,8 @@ import ChangePassword from "../views/ChangePassword.vue";
 import ControlPanel from "../views/ControlPanel.vue";
 import AddExchange from "../views/AddExchange.vue";
 import CreatePackage from "../views/CreatePackage.vue";
+import CreateLogic from "../views/CreateLogic.vue";
+import CreateRule from "../views/CreateRule.vue";
 
 const routes: Array<RouteRecordRaw> = [
     { path: '/', component: HomePage},
@@ -18,7 +20,9 @@ const routes: Array<RouteRecordRaw> = [
     { path: '/change_password', component: ChangePassword},
     { path: '/control_panel', component: ControlPanel},
     { path: '/add_exchange', component: AddExchange},
-    { path: '/create_package', component: CreatePackage}
+    { path: '/create_package', component: CreatePackage},
+    { path: '/create_logic', component: CreateLogic},
+    { path: '/create_rule', component: CreateRule}
 ]
 
 const router = createRouter({

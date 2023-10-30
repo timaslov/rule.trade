@@ -5,7 +5,6 @@ import router from "./router";
 import { store } from './store';
 import { auth } from '../firebaseConfig.ts'
 import '@mdi/font/css/materialdesignicons.min.css';
-import {getRequest} from "./services/http.ts";
 
 createApp(App)
     .use(router)
@@ -25,8 +24,7 @@ auth.onAuthStateChanged(async (user) => {
 
         //console.log(user)
         console.log(userData)
-        let response = await getRequest('/getparamsforpanel', {})
-        //console.log(response.data);
+        store.dispatch('fetchData');
     } else {
         store.dispatch('clearUser');
     }

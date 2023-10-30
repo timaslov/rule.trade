@@ -14,6 +14,7 @@ const data = reactive({
   selectedSlot: 0,
   alertCode: '',
   packageName: '',
+  stages: [false, false, false, false, false],
 });
 
 const handler1 = async () => {
@@ -22,6 +23,7 @@ const handler1 = async () => {
     let response = await postRequest('/testhook', { url: data.chartURL }, {})
     data.chartData.indicatorCode = response.data.res_code;
     data.chartData.plots = response.data.plots;
+    data.stages[0] = true;
   } catch (error) {
     console.log('Ошибка ', error.response.status)
   }
@@ -29,6 +31,7 @@ const handler1 = async () => {
 
 const handler2 = async () => {
   console.log('Handler 2');
+  data.stages[1] = true;
 }
 
 const handler3 = async () => {
@@ -41,6 +44,7 @@ const handler3 = async () => {
     }
     let response = await postRequest('/createalert', body, {})
     data.alertCode = JSON.stringify(response.data)
+    data.stages[2] = true;
   } catch (error) {
     console.log('Ошибка ', error.response.status)
   }
@@ -59,6 +63,7 @@ const handler4 = async () => {
     else
       console.log('Успех')
 
+    data.stages[3] = true;
   } catch (error) {
     console.log('Ошибка ', error.response.status)
   }
@@ -74,6 +79,7 @@ const handler5 = async () => {
     }
     await postRequest('/saveplots', body, {})
 
+    data.stages[4] = true;
     //setTimeout(() => {
     //  this.$router.push('/control_panel');
     //}, 1000);
@@ -85,33 +91,48 @@ const handler5 = async () => {
 </script>
 
 <template>
-  <h3>Создание пакета</h3>
+  <div class="back-title-top-block">
+    <router-link to="/control_panel" class="back-title-back">
+      <span class="mdi mdi-chevron-left"></span>
+      <span class="back-title-span-back">Назад</span>
+    </router-link>
+    <h3>Создание пакета</h3>
+  </div>
 
-  <div class="item item1">
+  <div class="item">
     <div class="item-label">
       <div class="progress-icon"><span>1</span></div>
       <label>Введите ссылку на чарт</label>
-      <span class="mdi mdi-information"></span>
+      <div class="info-wrapper">
+        <span class="mdi mdi-information"></span>
+        <div class="tooltip">Это информационное окошко</div>
+      </div>
     </div>
     <input type="text" v-model="data.chartURL">
     <button @click="handler1">Обработать ссылку</button>
   </div>
 
-  <div class="item item2">
+  <div class="item" v-if="data.stages[0]">
     <div class="item-label">
       <div class="progress-icon"><span>2</span></div>
       <label>Создайте индикатор с кодом ниже:</label>
-      <span class="mdi mdi-information"></span>
+      <div class="info-wrapper">
+        <span class="mdi mdi-information"></span>
+        <div class="tooltip">Это информационное окошко</div>
+      </div>
     </div>
     <textarea readonly v-model="data.chartData.indicatorCode"></textarea>
     <button @click="handler2">Индиктор создан</button>
   </div>
 
-  <div class="item item3">
+  <div class="item" v-if="data.stages[1]">
     <div class="item-label">
       <div class="progress-icon"><span>3</span></div>
       <label>Выберите слот</label>
-      <span class="mdi mdi-information"></span>
+      <div class="info-wrapper">
+        <span class="mdi mdi-information"></span>
+        <div class="tooltip">Это информационное окошко</div>
+      </div>
     </div>
     <select v-model="data.selectedSlot">
       <option v-for="slot in data.slots" :key="slot" :value="slot">
@@ -121,21 +142,27 @@ const handler5 = async () => {
     <button @click="handler3">Создать код алерта</button>
   </div>
 
-  <div class="item item4">
+  <div class="item" v-if="data.stages[2]">
     <div class="item-label">
       <div class="progress-icon"><span>4</span></div>
       <label>Создайте алерт с кодом ниже:</label>
-      <span class="mdi mdi-information"></span>
+      <div class="info-wrapper">
+        <span class="mdi mdi-information"></span>
+        <div class="tooltip">Это информационное окошко</div>
+      </div>
     </div>
     <textarea readonly v-model="data.alertCode"></textarea>
     <button @click="handler4">Алерт создан</button>
   </div>
 
-  <div class="item item5">
+  <div class="item" v-if="data.stages[3]">
     <div class="item-label">
       <div class="progress-icon"><span>5</span></div>
       <label>Введите название пакета</label>
-      <span class="mdi mdi-information"></span>
+      <div class="info-wrapper">
+        <span class="mdi mdi-information"></span>
+        <div class="tooltip">Это информационное окошко</div>
+      </div>
     </div>
     <input type="text" v-model="data.packageName">
     <button @click="handler5">Сохранить пакет</button>

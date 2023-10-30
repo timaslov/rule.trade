@@ -1,20 +1,30 @@
 <script setup lang="ts">
+import {useStore} from "vuex";
+import {computed} from "vue";
 
-const exchanges = ['binance', 'huobi', 'bybit'];
-const packages = ['from postman test', 'test package_9_30', 'test package', 'test11', 'test22', 'test33', 'test44', 'test55', 'test66', 'test77', 'test88', 'test99', 'test110', 'test120', 'test130', 'test140'];
-const logics = ['test logic 12 39', 'test logic 13 57', 'test logic 14 10'];
-const rules = ['test rule 1', 'test rule 2', 'test rule 3'];
+const store = useStore();
+
+const isLoading = computed(() => store.state.controlPanel.isLoading); // замените yourModuleName на имя вашего модуля
+
+const exchanges = computed(() => store.getters.exchanges);
+const packages = computed(() => store.getters.packages);
+const logics = computed(() => store.getters.logics);
+const rules = ['from postman test', 'test package_9_30', 'test package', 'test11', 'test22', 'test33', 'test44', 'test55', 'test66', 'test77', 'test88', 'test99', 'test110', 'test120', 'test130', 'test140'];
 
 </script>
 
 <template>
   <h3>Панель управления</h3>
-  <div class="container">
+  <div v-if="isLoading">ZAGRUZKA</div>
+  <div class="container" v-if="!isLoading">
 
     <div class="container-item">
       <div class="label-container">
         <label>Подключенные биржи</label>
-        <span class="mdi mdi-information"></span>
+        <div class="info-wrapper">
+          <span class="mdi mdi-information"></span>
+          <div class="tooltip">Это информационное окошко</div>
+        </div>
       </div>
       <div class="container-item-list">
         <router-link to="/add_exchange">
@@ -23,7 +33,7 @@ const rules = ['test rule 1', 'test rule 2', 'test rule 3'];
         </div>
         </router-link>
         <div v-for="exch in exchanges" class="container-item-list-item">
-          <div class="container-item-list-item-name">{{exch}}</div>
+          <div class="container-item-list-item-name">{{exch.name}}</div>
           <div class="container-item-list-item-buttons">
             <div class="container-item-list-item-black-button">
               <span class="mdi mdi-pencil"></span>
@@ -39,7 +49,10 @@ const rules = ['test rule 1', 'test rule 2', 'test rule 3'];
     <div class="container-item">
       <div class="label-container">
         <label>Сохраненные пакеты</label>
-        <span class="mdi mdi-information"></span>
+        <div class="info-wrapper">
+          <span class="mdi mdi-information"></span>
+          <div class="tooltip">Это информационное окошко</div>
+        </div>
       </div>
       <div class="container-item-list">
         <router-link to="/create_package">
@@ -48,7 +61,7 @@ const rules = ['test rule 1', 'test rule 2', 'test rule 3'];
         </div>
         </router-link>
         <div v-for="pack in packages" class="container-item-list-item">
-          <div class="container-item-list-item-name">{{pack}}</div>
+          <div class="container-item-list-item-name">{{pack.name}}</div>
           <div class="container-item-list-item-buttons">
             <div class="container-item-list-item-black-button">
               <span class="mdi mdi-pencil"></span>
@@ -64,16 +77,19 @@ const rules = ['test rule 1', 'test rule 2', 'test rule 3'];
     <div class="container-item">
       <div class="label-container">
         <label>Сформированная логика</label>
-        <span class="mdi mdi-information"></span>
+        <div class="info-wrapper">
+          <span class="mdi mdi-information"></span>
+          <div class="tooltip">Это информационное окошко</div>
+        </div>
       </div>
       <div class="container-item-list">
-        <router-link to="/">
+        <router-link to="/create_logic">
         <div class="add-button">
           <span class="mdi mdi-plus"></span>
         </div>
         </router-link>
         <div v-for="logic in logics" class="container-item-list-item">
-          <div class="container-item-list-item-name">{{logic}}</div>
+          <div class="container-item-list-item-name">{{logic.name}}</div>
           <div class="container-item-list-item-buttons">
             <div class="container-item-list-item-black-button">
               <span class="mdi mdi-pencil"></span>
@@ -89,10 +105,13 @@ const rules = ['test rule 1', 'test rule 2', 'test rule 3'];
     <div class="container-item">
       <div class="label-container">
         <label>Торговые правила</label>
-        <span class="mdi mdi-information"></span>
+        <div class="info-wrapper">
+          <span class="mdi mdi-information"></span>
+          <div class="tooltip">Это информационное окошко</div>
+        </div>
       </div>
       <div class="container-item-list">
-        <router-link to="/">
+        <router-link to="/create_rule">
         <div class="add-button">
           <span class="mdi mdi-plus"></span>
         </div>
@@ -122,6 +141,8 @@ h3 {
 .container {
   display: flex;
   flex-direction: column;
+  width: 90vw;
+  max-width: 1138px;
 }
 
 .container-item {

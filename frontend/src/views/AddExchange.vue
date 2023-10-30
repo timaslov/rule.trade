@@ -14,7 +14,7 @@ const handleClick = async () => {
       key: apiKey.value,
       secret: secretKey.value
     }
-    let response = await postRequest('/exchange_connect', body, {})
+    await postRequest('/exchange_connect', body, {})
   } catch (error) {
     console.log('Ошибка ', error.response.status)
   }
@@ -24,10 +24,10 @@ const handleClick = async () => {
 </script>
 
 <template>
-  <div class="top-block">
-    <router-link to="/control_panel" class="back">
+  <div class="back-title-top-block">
+    <router-link to="/control_panel" class="back-title-back">
       <span class="mdi mdi-chevron-left"></span>
-      <span class="span-back">Назад</span>
+      <span class="back-title-span-back">Назад</span>
     </router-link>
     <h3>Подключение биржи</h3>
   </div>
@@ -51,54 +51,6 @@ const handleClick = async () => {
 </template>
 
 <style scoped>
-.top-block {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 0 12px 0;
-}
-
-.top-block::after {
-  content: "";
-  display: block;
-  width:76px;
-}
-
-.top-block h3 {
-  flex-grow: 1;
-  text-align: center;
-}
-
-.back{
-  display: flex;
-  align-items: center;
-  width:76px;
-  text-decoration: none;
-  color: var(--brand-blue);
-}
-
-.mdi-chevron-left,
-.span-back {
-  transition: color 0.2s;
-}
-
-.back:hover .mdi-chevron-left,
-.back:hover .span-back {
-  color: var(--brand-info);
-}
-
-.mdi-chevron-left {
-  font-size: 28px;
-}
-
-.span-back {
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 130%
-}
-
 .main-block {
   width: 80vw;
   max-width: 1138px;

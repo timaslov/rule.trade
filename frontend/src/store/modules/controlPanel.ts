@@ -1,15 +1,19 @@
+import {getRequest} from "../../services/http.ts";
+
 type ControlPanelState = {
     exchanges: any[];
     logics: any[];
     packages: any[];
     rules: any[];
+    isLoading: boolean;
 };
 
 const state: ControlPanelState = {
     exchanges: [],
     logics: [],
     packages: [],
-    rules: []
+    rules: [],
+    isLoading: false
 };
 
 const mutations = {
@@ -30,6 +34,9 @@ const mutations = {
         state.logics = [];
         state.packages = [];
         state.rules = [];
+    },
+    SET_LOADING(state: ControlPanelState, status: boolean) {
+        state.isLoading = status;
     }
 };
 
@@ -48,6 +55,18 @@ const actions = {
     },
     clearAllData({ commit }) {
         commit('CLEAR_ALL_DATA');
+    },
+    async fetchData({ commit, dispatch }) {
+        commit('SET_LOADING', true);
+        let response = await getRequest('/getparamsforpanel', {});
+        console.log(response);
+
+        dispatch('setExchanges', response.data.exchanges);
+        dispatch('setLogics', response.data.logics);
+        dispatch('setPackages', response.data.packages);
+        dispatch('setRules', response.data.rules);
+
+        commit('SET_LOADING', false);
     }
 };
 
