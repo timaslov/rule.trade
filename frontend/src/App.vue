@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import NavBar from "./components/NavBar.vue";
 import AppFooter from "./components/AppFooter.vue";
+import SpinnerComponent from "./components/SpinnerComponent.vue";
+
+import {useStore} from "vuex";
+import {computed} from "vue";
+
+const store = useStore();
+const isSpinnerShown = computed(() => store.state.spinner.isVisible);
+
 </script>
 
 <template>
@@ -8,6 +16,7 @@ import AppFooter from "./components/AppFooter.vue";
 
   <main class="main">
     <RouterView/>
+    <spinner-component v-if="isSpinnerShown"/>
   </main>
 
     <AppFooter/>
