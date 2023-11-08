@@ -7,19 +7,20 @@ import {useStore} from "vuex";
 import {computed} from "vue";
 
 const store = useStore();
-const isSpinnerShown = computed(() => store.state.spinner.isVisible);
-
+const isUserLoading = computed(() => store.state.user.isLoading);
+const isControlPanelLoading = computed(() => store.state.controlPanel.isLoading);
+const user = computed(() => store.getters.user);
 </script>
 
 <template>
-    <NavBar/>
+  <spinner-component v-if="user && (isUserLoading || isControlPanelLoading)"/>
+  <NavBar/>
 
   <main class="main">
-    <RouterView/>
-    <spinner-component v-if="isSpinnerShown"/>
+    <RouterView v-if="!user || !isUserLoading && !isControlPanelLoading"/>
   </main>
 
-    <AppFooter/>
+  <AppFooter/>
 </template>
 
 <style scoped>

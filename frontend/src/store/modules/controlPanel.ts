@@ -13,7 +13,7 @@ const state: ControlPanelState = {
     logics: [],
     packages: [],
     rules: [],
-    isLoading: false
+    isLoading: true
 };
 
 const mutations = {
@@ -35,7 +35,7 @@ const mutations = {
         state.packages = [];
         state.rules = [];
     },
-    SET_LOADING(state: ControlPanelState, status: boolean) {
+    SET_LOADING_PANEL(state: ControlPanelState, status: boolean) {
         state.isLoading = status;
     }
 };
@@ -57,16 +57,21 @@ const actions = {
         commit('CLEAR_ALL_DATA');
     },
     async fetchData({ commit, dispatch }) {
-        commit('SET_LOADING', true);
-        let response = await getRequest('/getparamsforpanel', {});
-        console.log(response);
+        try {
+            commit('SET_LOADING_PANEL', true);
+            let response = await getRequest('/getparamsforpanel', {});
 
-        dispatch('setExchanges', response.data.exchanges);
-        dispatch('setLogics', response.data.logics);
-        dispatch('setPackages', response.data.packages);
-        dispatch('setRules', response.data.rules);
-
-        commit('SET_LOADING', false);
+            dispatch('setExchanges', response.data.exchanges);
+            dispatch('setLogics', response.data.logics);
+            dispatch('setPackages', response.data.packages);
+            dispatch('setRules', response.data.rules);
+        }
+        catch (error) {
+            throw error;
+        }
+        finally {
+            commit('SET_LOADING_PANEL', false);
+        }
     }
 };
 

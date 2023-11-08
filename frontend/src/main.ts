@@ -20,12 +20,14 @@ auth.onAuthStateChanged(async (user) => {
             photoURL: user.photoURL,
             accessToken: user.stsTokenManager.accessToken
         };
-        store.dispatch('setUser', userData);
+        await store.dispatch('setUser', userData);
 
         //console.log(user)
         console.log(userData)
-        store.dispatch('fetchData');
+        console.log('fetchData');
+        await store.dispatch('fetchData');
     } else {
-        store.dispatch('clearUser');
+        await store.dispatch('clearUser');
     }
+    await store.dispatch('setIsUserLoading', false);
 });

@@ -8,10 +8,12 @@ type User = {
 
 type UserState = {
     user: User | null;
+    isLoading: boolean;
 };
 
 const state: UserState = {
-    user: null
+    user: null,
+    isLoading: true
 };
 
 const mutations = {
@@ -20,7 +22,10 @@ const mutations = {
     },
     CLEAR_USER(state: UserState) {
         state.user = null;
-    }
+    },
+    SET_LOADING_USER(state: UserState, status: boolean) {
+        state.isLoading = status;
+    },
 };
 
 const actions = {
@@ -29,7 +34,10 @@ const actions = {
     },
     clearUser({ commit }) {
         commit('CLEAR_USER');
-    }
+    },
+    setIsUserLoading({ commit }, status: boolean) {
+        commit('SET_LOADING_USER', status);
+    },
 };
 
 const getters = {

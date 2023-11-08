@@ -4,20 +4,18 @@ import {computed} from "vue";
 
 const store = useStore();
 
-const isLoading = computed(() => store.state.controlPanel.isLoading); // замените yourModuleName на имя вашего модуля
+const isControlPanelLoading = computed(() => store.state.controlPanel.isLoading);
 
 const exchanges = computed(() => store.getters.exchanges);
 const packages = computed(() => store.getters.packages);
 const logics = computed(() => store.getters.logics);
-const rules = ['from postman test', 'test package_9_30', 'test package', 'test11', 'test22', 'test33', 'test44', 'test55', 'test66', 'test77', 'test88', 'test99', 'test110', 'test120', 'test130', 'test140'];
+const rules = computed(() => store.getters.rules);
 
 </script>
 
 <template>
   <h3>Панель управления</h3>
-  <div v-if="isLoading">ZAGRUZKA</div>
-  <div class="container" v-if="!isLoading">
-
+  <div v-if="!isControlPanelLoading">
     <div class="container-item">
       <div class="label-container">
         <label>Подключенные биржи</label>
@@ -35,9 +33,6 @@ const rules = ['from postman test', 'test package_9_30', 'test package', 'test11
         <div v-for="exch in exchanges" class="container-item-list-item">
           <div class="container-item-list-item-name">{{exch.name}}</div>
           <div class="container-item-list-item-buttons">
-            <div class="container-item-list-item-black-button">
-              <span class="mdi mdi-pencil"></span>
-            </div>
             <div class="container-item-list-item-red-button">
               <span class="mdi mdi-close"></span>
             </div>
@@ -63,9 +58,6 @@ const rules = ['from postman test', 'test package_9_30', 'test package', 'test11
         <div v-for="pack in packages" class="container-item-list-item">
           <div class="container-item-list-item-name">{{pack.name}}</div>
           <div class="container-item-list-item-buttons">
-            <div class="container-item-list-item-black-button">
-              <span class="mdi mdi-pencil"></span>
-            </div>
             <div class="container-item-list-item-red-button">
               <span class="mdi mdi-close"></span>
             </div>
@@ -117,10 +109,12 @@ const rules = ['from postman test', 'test package_9_30', 'test package', 'test11
         </div>
         </router-link>
         <div v-for="rule in rules" class="container-item-list-item">
-          <div class="container-item-list-item-name">{{rule}}</div>
+          <div class="container-item-list-item-name">{{rule.name}}</div>
           <div class="container-item-list-item-buttons">
             <div class="container-item-list-item-black-button">
+              <router-link :to="`/create_rule/${rule.id}`">
               <span class="mdi mdi-pencil"></span>
+              </router-link>
             </div>
             <div class="container-item-list-item-red-button">
               <span class="mdi mdi-close"></span>
@@ -129,8 +123,8 @@ const rules = ['from postman test', 'test package_9_30', 'test package', 'test11
         </div>
       </div>
     </div>
-
   </div>
+
 </template>
 
 <style scoped>

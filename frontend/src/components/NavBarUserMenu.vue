@@ -6,6 +6,8 @@ import {computed, ref, onMounted, onUnmounted} from "vue";
 
 const store = useStore();
 const user = computed(() => store.getters.user);
+const isUserLoading = computed(() => store.state.user.isLoading);
+const isControlPanelLoading = computed(() => store.state.controlPanel.isLoading);
 const router = useRouter();
 
 const isMenuOpened = ref(false);
@@ -44,24 +46,32 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <router-link to="/login" class="router-link-acc-button" v-if="!user"><span class="mdi mdi-account icon-account"></span></router-link>
-  <div class="user-options" v-if="!user">
-    <button class="btn-login"><router-link to="/login" class="router-link-btn-login">Войти</router-link></button>
-    <button class="btn-register"><router-link to="/register" class="router-link-btn-register">Регистрация</router-link></button>
+  <div v-if="!user || !isUserLoading && !isControlPanelLoading">
+    <router-link to="/login" class="router-link-acc-button" v-if="!user"><span class="mdi mdi-account icon-account"></span></router-link>
+
+    <div class="user-options" v-if="!user">
+      <button class="btn-login"><router-link to="/login" class="router-link-btn-login">Войти</router-link></button>
+      <button class="btn-register"><router-link to="/register" class="router-link-btn-register">Регистрация</router-link></button>
+    </div>
+
+    <div class="authorized-user-options" v-if="user">
+      <label>{{user.email}}</label>
+      <div ref="menuIconRef" @click="toggleMenu">
+        <span class="mdi mdi-account icon-account"></span>
+        <span class="mdi mdi-chevron-down icon-chevron" v-show="!isMenuOpened"></span>
+        <span class="mdi mdi-chevron-up icon-chevron" v-show="isMenuOpened"></span>
+      </div>
+      <ul v-if="isMenuOpened">
+        <li @click="openControlPanelHandler">Панель управления</li>
+        <li @click="changePasswordHandler">Сменить пароль</li>
+        <li @click="logoutHandler">Выход</li>
+      </ul>
+    </div>
   </div>
 
-  <div class="authorized-user-options" v-if="user">
-    <label>{{user.email}}</label>
-    <div ref="menuIconRef" @click="toggleMenu">
-      <span class="mdi mdi-account icon-account"></span>
-      <span class="mdi mdi-chevron-down icon-chevron" v-show="!isMenuOpened"></span>
-      <span class="mdi mdi-chevron-up icon-chevron" v-show="isMenuOpened"></span>
-    </div>
-    <ul v-if="isMenuOpened">
-      <li @click="openControlPanelHandler">Панель управления</li>
-      <li @click="changePasswordHandler">Сменить пароль</li>
-      <li @click="logoutHandler">Выход</li>
-    </ul>
+  <div v-if="user && (isUserLoading || isControlPanelLoading)">
+    <label> Аккаунт </label>
+    <span class="mdi mdi-account icon-account"></span>
   </div>
 </template>
 
@@ -111,7 +121,7 @@ const toggleMenu = () => {
   position: relative;
 }
 
-.authorized-user-options label{
+label{
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
