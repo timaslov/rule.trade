@@ -227,7 +227,7 @@
   align-items: flex-start;
   background-color: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 2px 10px 0 #d9d9d9;
+  box-shadow: 0 2px 10px 0 var(--brand-border-gray);
   margin-right: 32px;
 }
 
@@ -270,7 +270,7 @@
   flex: 1;
   background-color: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 2px 10px 0 #d9d9d9;
+  box-shadow: 0 2px 10px 0 var(--brand-border-gray);
   margin-right: 32px;
   padding: 42px;
 }
@@ -322,7 +322,7 @@
   align-items: flex-start;
   background-color: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 2px 10px 0 #d9d9d9;
+  box-shadow: 0 2px 10px 0 var(--brand-border-gray);
   padding: 16px;
   margin: 0 0 32px 0;
 }
@@ -356,7 +356,7 @@
 .didnt_find_answer {
   background-color: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 2px 10px 0 #d9d9d9;
+  box-shadow: 0 2px 10px 0 var(--brand-border-gray);
   padding: 32px;
   margin: 0 0 32px 0;
 }
